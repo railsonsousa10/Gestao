@@ -35,7 +35,7 @@ namespace DAL
             }
             finally
             {
-                cn.Open();
+                cn.Close();
             }
         }
         public Usuario Buscar(string _nomeUsuario) 
