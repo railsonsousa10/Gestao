@@ -1,4 +1,5 @@
 ﻿using Models;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace DAL
@@ -38,9 +39,52 @@ namespace DAL
                 cn.Close();
             }
         }
-        public Usuario Buscar(string _nomeUsuario) 
+        public Usuario BuscarPorNomeUsuario(string _nomeUsuario) 
         {
             return new Usuario();
+        }
+        public List<Usuario> BuscarTodos()
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+            Usuario usuario;
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+
+            try
+            {
+                cn.ConnectionString = Conexao.StringDeConexao;
+                cmd.Connection = cn;
+                cmd.CommandText = "SELECT Id, Nome, CPF, Email, Ativo FROM Usuario";
+                cmd.CommandType = System.Data.CommandType.Text;
+                cn.Open();
+
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        usuario = new Usuario();
+                        usuario.Id = Convert.ToInt32(rd["id"]);
+                        usuario.Nome = rd["NomeUsuario"].ToString();
+                        usuario.CPF = rd["CPF"].ToString();
+                        usuario.Email = rd["Email"].ToString();
+                        usuario.Ativo = Convert.ToBoolean(rd["Ativo"]);
+
+                        usuarios.Add(usuario);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao tenta Buscar usuários: " + ex.Message);
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+
+           return usuarios;
         }
         public void Alterar() 
         {
