@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BLL
 {
@@ -24,15 +25,20 @@ namespace BLL
 
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             usuarioDAL.Inserir(_usuario);
-            
+
         }
         public Usuario BuscarPorNomeUsuario(string _nomeUsuario)
         {
             if (String.IsNullOrEmpty(_nomeUsuario))
                 throw new Exception("Informe o mome do usuário. ");
-            
+
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.BuscarPorNomeUsuario(_nomeUsuario);
+        }
+        public List<Usuario> BuscarTodos()
+        {
+            UsuarioDAL usuarioDAL=new UsuarioDAL(); 
+            return usuarioDAL.BuscarTodos();
         }
         public void Alterar(Usuario _usuario)
         {

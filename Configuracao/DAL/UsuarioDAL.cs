@@ -63,7 +63,7 @@ namespace DAL
                 {
                     while (rd.Read())
                     {
-                        usuario = new Usuario();
+                        usuario = new Usuario(); 
                         usuario.Id = Convert.ToInt32(rd["id"]);
                         usuario.Nome = rd["NomeUsuario"].ToString();
                         usuario.CPF = rd["CPF"].ToString();
@@ -96,3 +96,4 @@ namespace DAL
         }
     }
 }
+
