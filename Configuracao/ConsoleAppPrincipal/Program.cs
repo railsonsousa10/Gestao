@@ -3,7 +3,7 @@ using Models;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 
-internal class Progam
+internal class Program
 
 {
 
